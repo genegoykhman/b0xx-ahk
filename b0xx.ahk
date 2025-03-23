@@ -36,7 +36,7 @@ Menu, Tray, Default, Edit Controls
 for index, element in hotkeys{
  Gui, Add, Text, xm vLB%index%, %element% Hotkey:
  IniRead, savedHK%index%, hotkeys.ini, Hotkeys, %index%, %A_Space%
- If savedHK%index%                                       ;Check for saved hotkeys in INI file.
+ If savedHK%index% != ""                                ;Check for saved hotkeys in INI file.
   Hotkey,% savedHK%index%, Label%index%                 ;Activate saved hotkeys if found.
   Hotkey,% savedHK%index% . " UP", Label%index%_UP                 ;Activate saved hotkeys if found.
   ;TrayTip, B0XX, Label%index%_UP, 3, 0
@@ -499,7 +499,7 @@ validateHK(GuiControl) {
    HK%num% := "~" HK%num%                   ;    This prevents any key from being blocked.
   checkDuplicateHK(num)
  }
- If (savedHK%num% || HK%num%)               ;Unless both are empty,
+ If (savedHK%num% != "" || HK%num% != "")   ;Unless both are empty,
   setHK(num, savedHK%num%, HK%num%)         ;  update INI/GUI
 }
 
